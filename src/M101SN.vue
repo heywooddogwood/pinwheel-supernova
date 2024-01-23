@@ -682,18 +682,17 @@ import { defineComponent } from 'vue';
 import { csvFormatRows, csvParse } from "d3-dsv";
 
 import { distance } from "@wwtelescope/astro";
-import { Color, Constellations, Folder, Grids, Layer, LayerManager, Poly, RenderContext, Settings, SpreadSheetLayer, WWTControl } from "@wwtelescope/engine";
-import { MarkerScales, PlotTypes, Thumbnail } from "@wwtelescope/engine-types";
+import { Constellations, Folder, Grids, ImageSetLayer, Layer, LayerManager, Place, Poly, RenderContext, Settings, SpreadSheetLayer, WWTControl } from "@wwtelescope/engine";
+import { Thumbnail } from "@wwtelescope/engine-types";
 
 import L, { LeafletMouseEvent, Map } from "leaflet";
 import { getTimezoneOffset } from "date-fns-tz";
 import tzlookup from "tz-lookup";
-import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets } from "@minids/common";
+import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets } from "@cosmicds/vue-toolkit";
 
-import { ImageSetLayer, Place } from "@wwtelescope/engine";
 import { applyImageSetLayerSetting } from "@wwtelescope/engine-helpers";
 
-import {GotoRADecZoomParams} from "@wwtelescope/engine-pinia";
+import { GotoRADecZoomParams } from "@wwtelescope/engine-pinia";
 
 import { drawSkyOverlays, initializeConstellationNames, makeAltAzGridText, drawSpreadSheetLayer, layerManagerDraw } from "./wwt-hacks";
 
@@ -2427,7 +2426,7 @@ export default defineComponent({
 <style lang="less">
 @font-face {
   font-family: "Highway Gothic Narrow";
-  src: url("../../assets/HighwayGothicNarrow.ttf");
+  src: url("https://cosmicds.github.io/cds-website/fonts/HighwayGothicNarrow.ttf");
 }
 
 html {
@@ -2513,7 +2512,7 @@ body {
     align-items: center;
     justify-content: center;
     .spinner {
-      background-image: url("../../assets/lunar_loader.gif");
+      background-image: url("https://cosmicds.github.io/cds-website/misc/lunar_loader.gif");
       background-repeat: no-repeat;
       background-size: contain;
       width: 3rem;

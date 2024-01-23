@@ -9,10 +9,7 @@ import chartjsScatter from "./chartjs-scatter.vue";
 import d3Scatter from "./d3-scatter.vue";
 // import PlotDataPlotly from "./PlotDataPlotly.vue";
 import ConstellationIcon from "./ConstellationIcon.vue";
-import { IconButton } from "@minids/common";
-import { FundingAcknowledgment } from "@minids/common";
-
-import { Gallery } from "@minids/common";
+import { FundingAcknowledgment, Gallery, IconButton } from "@cosmicds/vue-toolkit";
 
 import "./polyfills";
 
@@ -84,7 +81,7 @@ import "leaflet/dist/leaflet.css";
 const update = (el: HTMLElement, binding: Vue.DirectiveBinding) => el.style.visibility = (binding.value) ? "hidden" : "";
 
 createApp(M101SN, {
-  wwtNamespace: "wwt-minids-m101-supernova",
+  wwtNamespace: "pinwheel-supernova",
   wtml: { // images are listed in chronological order earliest to latest
     imageCollection: "https://raw.githubusercontent.com/johnarban/wwt_interactives/main/images/m101/m101_all.wtml",
   },
