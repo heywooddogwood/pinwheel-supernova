@@ -679,7 +679,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { csvFormatRows, csvParse } from "d3-dsv";
+import { csvParse } from "d3-dsv";
 
 import { distance } from "@wwtelescope/astro";
 import { Constellations, Folder, Grids, ImageSetLayer, Layer, LayerManager, Place, Poly, RenderContext, Settings, SpreadSheetLayer, WWTControl } from "@wwtelescope/engine";
@@ -759,27 +759,6 @@ const aavsoLightCurveTable = csvParse(aavsoLightCurve, (d) => {
 // generic names are fine
 type Table = typeof fullDatesTable;
 type TableRow = typeof fullDatesTable[number];
-
-function formatCsvTable(table: Table): string {
-  return csvFormatRows([[
-    "Date", "RA", "Dec"
-  ]].concat(table.map((d, _i) => {
-    return [
-      d.date.toISOString(),
-      d.ra.toString(),
-      d.dec.toString(),
-      // d.tMag.toString(),
-      // d.angspeed.toString(),
-    ];
-  }))).replace(/\n/g, '\r\n');
-  // By using a regex, we replace all instances.
-  // For WWT implementation reasons (left over from 
-  // the Windows client?), we need the line endings 
-  // to be CRLF // lol
-}
-
-// const fullDatesString = formatCsvTable(fullDatesTable);
-// const imageDatesString = formatCsvTable(imageDatesTable);
 
 const allDates = fullDatesTable.map(r => r.date.getTime());
 const imageDates = [... new Set(imageDatesTable.map(r => r.date.getTime()))];

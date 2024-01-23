@@ -195,6 +195,9 @@ export default defineComponent({
       // https://stackoverflow.com/questions/72214227/chart-js-add-direction-arrows-to-the-x-and-y-axes
       const arrowBorder = {
         id: 'arrowBorder',
+        // JC: I don't know whether or not these unused fields are actually needed,
+        // so I just decided to leave them
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         afterDatasetsDraw(chart: Chart, args: any, pluginOptions: any) {
           const {
             ctx,
@@ -203,7 +206,9 @@ export default defineComponent({
               bottom,
               left,
               right,
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               width,
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               height
             }
           } = chart;
