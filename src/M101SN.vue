@@ -52,10 +52,10 @@
         </div>
         
         <div id="splash-screen-acknowledgements">
-          This Mini Data Story is brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
+          Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
           
           <div id="splash-screen-icons">
-            <mini-credits/>
+            <story-credits/>
           </div>
         </div>
     </div>
@@ -392,7 +392,7 @@
       </vue-slider>
     </div>
     
-    <mini-credits class="bottom-credits"></mini-credits>
+    <story-credits class="bottom-credits"></story-credits>
     
     <v-dialog
       id="video-container"
@@ -548,7 +548,7 @@
                 <p>Martin Fowler (<a href="https://solarsystem.nasa.gov/people/647/martin-fowler/" target="_blank" rel="noopener noreferrer">NASA Citizen Scientist</a>)</p>
                 <br/>
 
-                <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Mini Stories Team:</h4>
+                <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Team:</h4>
                 John Lewis<br>
                 Jon Carifio<br>
                 Pat Udomprasert<br>
@@ -636,7 +636,7 @@
                           </li>
                         </ul>
                       <br>
-                      This Mini Data Story is powered by WorldWide Telescope (WWT).
+                      This Data Story is powered by WorldWide Telescope (WWT).
 
                       </div>
                     </v-col>
@@ -645,7 +645,7 @@
                     <v-col cols="12">
                       <div class="credits">
                       <h3>Credits:</h3>
-                      <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Mini Stories Team:</h4>
+                      <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Team:</h4>
                       John Lewis<br>
                       Jon Carifio<br>
                       Pat Udomprasert<br>
@@ -2405,7 +2405,7 @@ export default defineComponent({
 <style lang="less">
 @font-face {
   font-family: "Highway Gothic Narrow";
-  src: url("https://cosmicds.github.io/cds-website/fonts/HighwayGothicNarrow.ttf");
+  src: url("https://projects.cosmicds.cfa.harvard.edu/cds-website/fonts/HighwayGothicNarrow.ttf");
 }
 
 html {
@@ -2491,7 +2491,7 @@ body {
     align-items: center;
     justify-content: center;
     .spinner {
-      background-image: url("https://cosmicds.github.io/cds-website/misc/lunar_loader.gif");
+      background-image: url("https://projects.cosmicds.cfa.harvard.edu/cds-website/misc/lunar_loader.gif");
       background-repeat: no-repeat;
       background-size: contain;
       width: 3rem;

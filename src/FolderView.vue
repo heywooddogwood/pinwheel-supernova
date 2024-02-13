@@ -11,7 +11,7 @@
     >
       <div class="wrapper">
         <img
-          src="https://github.com/cosmicds/cds-website/raw/main/public/comet_c2022-e3/thumbnails/694_2022E3_14_01_23.jpg" v-if="!thumbnails"
+          src="https://johnarban.github.io/wwt_interactives/images/m101/hubble_m101/thumb.jpg" v-if="!thumbnails"
         />
         <div class="thumbnail-header" v-if="expanded">
           Click <span v-if="thumbnails">thumbnail</span><span v-else>date</span> to see image in sky
