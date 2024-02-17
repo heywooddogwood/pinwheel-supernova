@@ -146,6 +146,7 @@
         @deselect="onItemDeselected"
       />
     </div>
+
     <div class="bottom-content">
 
       <div id="tools">
@@ -158,24 +159,24 @@
             @click="chartVisible = !chartVisible"
             @keyup.enter="chartVisible = !chartVisible"
             :color="accentColor"
-            >
-              <font-awesome-icon
-                id="chart-icon"
-                class="control-icon"
-                :icon="chartVisible ? 'circle-xmark' : 'chart-line'"
-                size="xl"
-              />
+          >
+            <font-awesome-icon
+              id="chart-icon"
+              class="control-icon"
+              :icon="chartVisible ? 'circle-xmark' : 'chart-line'"
+              size="xl"
+            />
             <span id="button-text">{{ chartVisible ? 'Hide' : 'Show' }} supernova brightness graph</span>
           </v-btn>
         </div>
-          <div id="chart-container" v-show="chartVisible" >
-            <div id="chart-title">
-              Supernova Light Curve (Change in Brightness Over Time)
-            </div>
-            <div id="yaxis-text">
-              Supernova <br />
-              Brightness
-            </div>
+        <div id="chart-container" v-show="chartVisible" >
+          <div id="chart-title">
+            Supernova Light Curve (Change in Brightness Over Time)
+          </div>
+          <div id="yaxis-text">
+            Supernova <br />
+            Brightness
+          </div>
             <!-- :lineData="dates.map(d => {return {x: d, y: 12.5}})" -->
           <chartjs-scatter
             reversedY
@@ -216,10 +217,8 @@
           
           <div id="xaxis-text">
               Time
-            </div>
-          
           </div>
-          
+        </div>
         
         <span class="tool-container">
           <icon-button
@@ -233,16 +232,16 @@
                   playingImagePath = false; // don't reverse the order of this line and previous or logic will break.
                 }"
           >
-          <template #button>
-          <span class="play-icon-text">Watch over time&nbsp;</span>
-                <font-awesome-icon
-                  id="play-pause-icon"
-                  class="control-icon"
-                  :icon="!(playing || playingImagePath) ? 'play' : 'pause'"
-                  size="sm"
-                ></font-awesome-icon>
-          </template>
-        </icon-button>
+            <template #button>
+              <span class="play-icon-text">Watch over time&nbsp;</span>
+              <font-awesome-icon
+                id="play-pause-icon"
+                class="control-icon"
+                :icon="!(playing || playingImagePath) ? 'play' : 'pause'"
+                size="sm"
+              ></font-awesome-icon>
+            </template>
+          </icon-button>
           <vue-slider
             adsorb
             included
@@ -261,120 +260,18 @@
             :tooltip-formatter="(v: number) => 
               toDateString(new Date(v))
             "
-            >
-              <template v-slot:mark="{ pos, value }">
-                <div
-                  :class="[{ 'mark-line': imageDates.includes(value) }]"
-                  :style="{ left: `${pos}%` }">
-                </div>
-              </template>
-            </vue-slider>
-          </span>
+          >
+            <template v-slot:mark="{ pos, value }">
+              <div
+                :class="[{ 'mark-line': imageDates.includes(value) }]"
+                :style="{ left: `${pos}%` }">
+              </div>
+            </template>
+          </vue-slider>
+        </span>
       </div>
       
-      <div
-        v-if="false"
-        id="controls"
-        class="control-icon-wrapper"
-      >
-        <div id="controls-top-row">
-          <font-awesome-icon
-            size="lg"
-            class="ma-1"
-            :color="accentColor"
-            :icon="showControls ? `chevron-down` : `gear`"
-            @click="showControls = !showControls"
-            @keyup.enter="showControls = !showControls"
-            tabindex="0"
-          />
-        </div>
-        <transition-expand>
-          <div v-if="showControls" class="controls-content">
-            <v-btn
-                block
-                :color="accentColor"
-                @click="() => {
-                  playing =  !(playing || playingImagePath);;
-                  playingImagePath = !playingImagePath;
-                }"
-              >
-                {{ `${playingImagePath ? 'Stop' : 'Play'} supernova images` }}
-              </v-btn>
-            
-            <!-- <v-btn
-                block
-                :color="accentColor"
-                @click="centerView"
-                @keyup.enter="centerView"
-                class="mb-2"
-              >
-                Center the Pinwheel
-            </v-btn> -->
-          
-            <toggle
-              :show="false"
-              :color="accentColor"
-              :item="showAltAzGrid"
-              label="Grid"
-              @toggle="showAltAzGrid = $event"
-            />
-            <toggle
-              :color="accentColor"
-              :item="showConstellations"
-              label="Constellations"
-              @toggle="showConstellations = $event"
-            />
-            <toggle
-              :show="false"
-              :color="accentColor"
-              :item="showHorizon"
-              label="Horizon"
-              @toggle="showHorizon = $event"
-            />
-            <div 
-              v-if="false"
-              id="time-picker-wrapper">
-            <div
-              style="color:white;"
-              class="mt-3"
-            >
-              Selected location's time:
-            </div>
-            <date-picker
-              v-if="false"
-              dark
-              time-picker
-              enable-seconds
-              :is-24="false"
-              v-model="timeOfDay"
-              :clearable="false"
-              close-on-scroll
-              class="mb-4 mt-1"
-            >
-              <template #input-icon>
-                <font-awesome-icon
-                  icon="clock"
-                  class="mx-2"
-                  :color="accentColor"
-                ></font-awesome-icon>
-              </template>
-            </date-picker>
-          </div>
-            <!--
-            <v-btn
-              block
-              :color="accentColor"
-              @click="setToFirstCometImage"
-            >
-              Best view for comet images
-            </v-btn> -->
-          </div>
-        </transition-expand>
-      </div>
-
-    </div>
-    
-    <div class="opacity-slider-wrapper">
+      <div class="opacity-slider-wrapper">
         <vue-slider
           v-if="!smallSize"
           class="opacity-slider"
@@ -389,10 +286,12 @@
           @change="(opacity: number) => currentLayer?.set_opacity(opacity)"
           >
           <span>Change image opacity</span>
-      </vue-slider>
+        </vue-slider>
+      </div>
+      
+      <story-credits class="bottom-credits" v-if="!smallSize"></story-credits>
+
     </div>
-    
-    <story-credits class="bottom-credits"></story-credits>
     
     <v-dialog
       id="video-container"
@@ -836,7 +735,7 @@ export default defineComponent({
   data() {
     const now = new Date();
     return {
-      showSplashScreen: true,
+      showSplashScreen: true, // ACTION NEEDED - reset to true
       imagesetLayers: {} as Record<string, ImageSetLayer>,
       layersLoaded: false,
       positionSet: false,
@@ -912,7 +811,6 @@ export default defineComponent({
       showResetTooltip: false,
       showConstellationTooltip: false,
       showLocationSelector: false,
-      showControls: false,
       tab: 0,
       chartVisible: false,
       revealAnswer: false,
@@ -990,8 +888,6 @@ export default defineComponent({
       // create date with y m d h m s
 
       this.setTime(this.dateTime);
-
-      this.showControls = !this.mobile;
 
       Promise.all(layerPromises).then(() => {
         this.layersLoaded = true;
@@ -2719,6 +2615,7 @@ body {
 div.opacity-slider-wrapper {
   display:flex;
   position:absolute;
+
   bottom: 1rem;
   left: 1rem;
   width: 200px;
@@ -2741,18 +2638,12 @@ div.opacity-slider-wrapper {
   display: flex;
   flex-direction: column;
   position: absolute;
-  bottom: 4rem;
+  bottom: 1rem;
   right: 1rem;
   width: calc(100% - 2rem);
   pointer-events: none;
   align-items: center;
   gap: 5px;
-}
-  
-.bottom-credits {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
 }
 
 div#main-content > div {
@@ -2813,39 +2704,8 @@ div#main-content > div {
   width: ~"min(160px, 35vw)";
 }
 
-#controls {
-  position: absolute;
-  bottom: 8rem;
-  z-index: 10;
-  background: black;
-  padding: 10px;
-  border-radius: 10px;
-  border: solid 1px var(--accent-color);
-  display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  pointer-events: auto;
-
-  .v-label {
-    // color: var(--accent-color);
-    color: white;
-    opacity: 1;
-  }
-
-  #controls-top-row {
-    margin-right: 0px;
-    margin-left: auto;
-  }
-}
-
 .dp__select {
   color: var(--accent-color) !important;
-}
-
-#show-controls {
-  color: var(--accent-color);
 }
 
 .v-selection-control--focus-visible .v-selection-control__input::before {
@@ -3068,7 +2928,9 @@ video, #info-video {
 
 #slider {
   width: 100% !important;
-  margin: 5px 30px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  margin-inline: 6rem;
   // display: none;
   // opacity: 0;
 
@@ -3089,7 +2951,9 @@ video, #info-video {
 
 #opacity-slider {
   width: 100% !important;
-  margin: 5px 30px;
+  margin-inline: 30px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .vue-slider-process {
@@ -3285,13 +3149,6 @@ video, #info-video {
     white-space: nowrap;
   }
     
-}
-
-#overlays {
-  margin: 5px;
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.5rem;
 }
 
 ul.text-list {
