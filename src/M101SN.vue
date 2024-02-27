@@ -1057,13 +1057,6 @@ export default defineComponent({
           }
         };
         setTimeout(createArrowFunction, 100);
-
-        this.gotoRADecZoom({
-          raRad: this.wwtRARad,
-          decRad: this.wwtDecRad,
-          zoomDeg: this.initialPosition.zoom,
-          instant: true
-        });
       }, 100);
 
     });
