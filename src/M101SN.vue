@@ -593,7 +593,7 @@ import { applyImageSetLayerSetting } from "@wwtelescope/engine-helpers";
 
 import { GotoRADecZoomParams } from "@wwtelescope/engine-pinia";
 
-import { drawSkyOverlays, initializeConstellationNames, makeAltAzGridText, drawSpreadSheetLayer, layerManagerDraw } from "./wwt-hacks";
+import { drawSkyOverlays, getScreenPosForCoordinates, initializeConstellationNames, makeAltAzGridText, drawSpreadSheetLayer, layerManagerDraw } from "./wwt-hacks";
 
 interface MoveOptions {
   instant?: boolean;
@@ -614,6 +614,7 @@ import {
 
 const D2R = Math.PI / 180;
 const R2D = 180 / Math.PI;
+const D2H = 1 / 15;
 
 const SECONDS_PER_DAY = 60 * 60 * 24;
 const MILLISECONDS_PER_DAY = 1000 * SECONDS_PER_DAY;
@@ -758,6 +759,7 @@ export default defineComponent({
       m101RADeg: 3.681181581357794 * R2D + 0.2/60,
       m101DecDeg: 0.9480289529731357 * R2D - 1/60,
       arrowAngleDeg: -60,
+      arrowCreated: false,
 
       showSpeadSheetLater: false,
 
@@ -939,26 +941,18 @@ export default defineComponent({
       setTimeout(() => {
         this.centerView();
         this.positionSet = true;
-      }, 100);
 
-      this.gotoRADecZoom({
-        raRad: D2R * this.initialPosition.ra,
-        decRad: D2R * this.initialPosition.dec,
-        zoomDeg: 2,
-        instant: true
-      });
-
-      setTimeout(() => {
-        this.createArrow();
-        if (this.showArrow) {
-          this.displayArrow();
-        }
-        this.gotoRADecZoom({
-          raRad: this.wwtRARad,
-          decRad: this.wwtDecRad,
-          zoomDeg: this.initialPosition.zoom,
-          instant: true
-        });
+        const createArrowFunction = () => {
+          try {
+            this.createArrow();
+            if (this.showArrow) {
+              this.displayArrow();
+            }
+          } catch (err) {
+            setTimeout(createArrowFunction, 100);
+          }
+        };
+        setTimeout(createArrowFunction, 100);
       }, 100);
 
     });
@@ -1119,7 +1113,7 @@ export default defineComponent({
 
     createArrow() {
 
-      const m101XY = this.findScreenPointForRADec({ra: this.m101RADeg, dec: this.m101DecDeg});
+      const m101XY = getScreenPosForCoordinates(this.wwtControl, this.m101RADeg * D2H, this.m101DecDeg);
       const m101Point: Point = [m101XY.x, m101XY.y];
     
       // Create the outer (purple) arrow
@@ -1148,7 +1142,7 @@ export default defineComponent({
       outerArrowCoordinates.push([headBackRA, bottomDec]);
 
       for (const coords of outerArrowCoordinates) {
-        const point = this.findScreenPointForRADec({ra: coords[0], dec: coords[1]});
+        const point = getScreenPosForCoordinates(this.wwtControl, coords[0] * D2H, coords[1]);
         const rotatedPoint = this.rotatePoint([point.x, point.y], m101Point, this.arrowAngleDeg);
         const rotatedCoords = this.findRADecForScreenPoint({x: rotatedPoint[0], y: rotatedPoint[1]});
         this.outerArrow.addPoint(rotatedCoords.ra, rotatedCoords.dec);
@@ -1181,7 +1175,7 @@ export default defineComponent({
       innerArrowCoordinates.push([innerHeadBackRA, innerBottomDec]);
 
       for (const coords of innerArrowCoordinates) {
-        const point = this.findScreenPointForRADec({ra: coords[0], dec: coords[1]});
+        const point = getScreenPosForCoordinates(this.wwtControl, coords[0] * D2H, coords[1]);
         const rotatedPoint = this.rotatePoint([point.x, point.y], m101Point, this.arrowAngleDeg);
         const rotatedCoords = this.findRADecForScreenPoint({x: rotatedPoint[0], y: rotatedPoint[1]});
         this.innerArrow.addPoint(rotatedCoords.ra, rotatedCoords.dec);
@@ -1191,10 +1185,12 @@ export default defineComponent({
       this.innerArrow.set_lineColor(innerColor);
       this.innerArrow.set_fillColor(innerColor);
       this.innerArrow.set_fill(true);
+
+      this.arrowCreated = true;
     },
 
     displayArrow() {
-      if (this.outerArrow == null || this.innerArrow == null) {
+      if (!this.arrowCreated) {
         this.createArrow();
       }
       if (this.outerArrow) {
