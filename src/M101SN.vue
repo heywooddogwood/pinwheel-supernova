@@ -28,27 +28,16 @@
         <div
           id="first-splash-row"
         >
-          <div
+          <font-awesome-icon
             id="close-splash-button"
             @click="closeSplashScreen"
-            >&times;</div>
+            icon="xmark"
+          />
           <div id="splash-screen-text">
             <p> See a </p>
             <p class="highlight"> Star Explode </p>
             <p class="small"> in a galaxy far, far away... </p>
           </div>
-        </div>
-        
-        <div id="splash-screen-guide">
-          <font-awesome-icon
-            id="text-icon"
-            icon="book-open"
-          /> Read the guide 
-          <br>
-          <font-awesome-icon
-            id="video-icon"
-            icon="video"
-          /> Watch the demo 
         </div>
         
         <div id="splash-screen-acknowledgements">
@@ -3059,7 +3048,7 @@ video, #info-video {
   align-content: center;
   justify-content: space-around;
   
-  border-radius: 10%;
+  border-radius: 30px;
   border: min(1.2vw,0.9vh) solid var(--accent-color);
   overflow: auto;
   font-family: 'Highway Gothic Narrow', 'Roboto', sans-serif;
@@ -3095,11 +3084,12 @@ video, #info-video {
   }
 
   #close-splash-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     text-align: end;
-    margin-top: 0%;
-    margin-right: 6%;
     color: var(--accent-color-2);
-    font-size: min(8vw, 5vh);
+    font-size: min(5vw, 4vh);
 
     &:hover {
       cursor: pointer;
@@ -3125,6 +3115,7 @@ video, #info-video {
   }
 
   #splash-screen-acknowledgements {
+    margin-top: 3rem;
     font-size: .5em;
     width: 70%; 
   }
